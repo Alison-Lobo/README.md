@@ -17,7 +17,7 @@ OUTPUT_DIR  = os.getenv("OUT",    "/home/alison.lobo/llama32_qlora/outputs/llama
 MAX_STEPS   = int(os.getenv("MAX_STEPS", "1500"))
 EVAL_STEPS  = int(os.getenv("EVAL_STEPS", "200"))
 LOG_STEPS   = int(os.getenv("LOG_STEPS", "20"))
-EPOCHS      = int(os.getenv("EPOCHS", "3"))
+EPOCHS      = int(os.getenv("EPOCHS", "60"))
 
 print("🚀 Iniciando entrenamiento QLoRA (FULL) con Unsloth")
 print("📁 Dataset:", DATASET)
