@@ -7,9 +7,9 @@ Python · PyTorch 2.7.1 · Transformers · Unsloth · QLoRA · CUDA 12.8 · HPC-
 
 This project adapts the **LLaMA 3.2 1B Instruct** model to **Spanish** using efficient fine-tuning with **QLoRA (4-bit)** through the **Unsloth** library, executed on the **HPC-UCR cluster**.
 
-The objective of this work is to build a small but specialized model capable of responding to **academic instructions in Spanish**, using a dataset generated from PDFs processed to JSONL.
+The objective of this work is to train a base model capable of responding to instructions in Spanish, using an academic data repository processed to JSONL.
 
-This project demonstrates how it is possible to train language models in university infrastructures using modern optimization and GPU consumption techniques.
+This project demonstrates how it is possible to train language models in university infrastructures using modern optimization techniques and GPU consumption.
 
 ---
 
