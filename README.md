@@ -32,14 +32,42 @@ This project demonstrates how it is possible to train language models in univers
 
 ## 📊 Results
 
-From `training_summary_full.json`:
+Training was run for **60 epochs** using QLoRA (4-bit) on an NVIDIA **A100 80GB** GPU (HPC-UCR), with a warmup + cosine decay scheduler.
 
-| Metric      | Value |
-|-------------|--------|
-| Eval Loss   | **3.08** |
-| Perplexity  | **21.74** |
-| Epochs      | **60** |
-| Runtime     | **3 blocks × 6 hours** (GPU HPC-UCR) |
+From the training logs (`llama32_qlora_full_28137.out`) and `training_summary_full.json`, the model shows a consistent improvement on the validation set:
+
+| Metric                              | Value (approx.)                      |
+|------------------------------------|--------------------------------------|
+| Initial eval loss (epoch ≈ 1)      | **3.08**                             |
+| Final eval loss (epoch 60)         | **1.70**                             |
+| Initial perplexity (epoch ≈ 1)     | **21.74**                            |
+| Final perplexity (epoch 60)        | **≈ 5.47**                           |
+| Training epochs                    | **60**                               |
+| Effective GPU runtime              | **3 blocks × 6 hours (A100 80GB)**   |
+
+These values indicate a **monotonic decrease in loss and perplexity** on the validation set, showing that the model improves its ability to model Spanish-language sequences as training progresses.
+
+### 📈 Metrics by epoch (summary)
+
+The table below summarizes the behaviour of the main metrics at selected epochs:
+
+| Epoch | Train loss | Eval loss | Perplexity (≈ e^loss) | Learning rate        | Grad norm |
+|------:|-----------:|----------:|----------------------:|----------------------|----------:|
+| 1     | 3.2204     | 3.0790    | 21.74                 | 2.66×10⁻⁵           | 4.09      |
+| 10    | 0.2142     | 3.0143    | 20.37                 | 1.71×10⁻⁴           | 1.17      |
+| 20    | 0.1775     | 2.9798    | 19.68                 | 1.37×10⁻⁴           | 1.07      |
+| 30    | 0.1523     | 2.8126    | 16.65                 | 1.03×10⁻⁴           | 0.36      |
+| 40    | 0.1519     | 2.6656    | 14.38                 | 6.88×10⁻⁵           | 0.33      |
+| 50    | 0.1454     | 2.4571    | 11.67                 | 3.40×10⁻⁵           | 0.30      |
+| 60    | 0.1392     | 1.7000    | 5.47                  | 4.35×10⁻⁸           | 0.29      |
+
+- **Train loss** drops rapidly from ~3.22 to ~0.14 and then stabilizes.
+- **Eval loss** decreases from ~3.08 to ~1.70, with an associated reduction of **perplexity** from ~21.7 to ~5.5.
+- The **learning rate** increases after the warmup phase (peaking around 1.9×10⁻⁴) and then decays almost to zero at the end, following a *cosine decay* pattern.
+- The **gradient norm** goes from ~4.1 to values close to 0.3, showing large updates at the beginning and progressively smaller, more stable steps in later epochs.
+
+Taken together, these curves show a **stable training process without exploding gradients** and a sustained improvement on the validation set – an appropriate behaviour for a **1B-parameter model** fine-tuned with QLoRA in an academic setting.
+
 
 ---
 
