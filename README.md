@@ -146,7 +146,7 @@ sbatch train_block_full_gpu.sbatch
 
 ```bash
 # Ver log completo del entrenamiento
-less ~/llama32_qlora/logs/llama32_qlora_full_28137.out
+less ~/llama32_qlora/logs/llama32_qlora_full_*.out
 
 # Mostrar métricas resumidas
 cat ~/llama32_qlora/outputs/llama32_block1_full/training_summary_full.json | jq
@@ -166,7 +166,7 @@ less ~/llama32_qlora/scripts/train_block_full_gpu.sbatch
 | File                         | Description |
 |-----------------------------|-------------|
 | `adapter_model.safetensors` | QLoRA adapters |
-| `llama32_qlora_full_28137.out`| Final metrics |
+| `llama32_qlora_full_*.out`| Final metrics |
 | `tokenizer.json`            | Tokenizer used |
 | `*.out` / `*.err`           | HPC-UCR logs |
 
